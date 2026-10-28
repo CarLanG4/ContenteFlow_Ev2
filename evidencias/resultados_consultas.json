@@ -3,7 +3,7 @@
     "consulta": 1,
     "titulo": "Usuarios móviles de género femenino",
     "registros": 10,
-    "ms": 161,
+    "ms": 73,
     "datos": [
       {
         "nombre": "Patricia Mitchell",
@@ -61,7 +61,7 @@
     "consulta": 2,
     "titulo": "Últimas publicaciones de Tecnología",
     "registros": 10,
-    "ms": 96,
+    "ms": 77,
     "datos": [
       {
         "_id": "pub_403",
@@ -180,7 +180,7 @@
     "consulta": 3,
     "titulo": "Comentarios más valorados",
     "registros": 58,
-    "ms": 128,
+    "ms": 75,
     "datos": [
       {
         "usuario_id": "user_395",
@@ -478,7 +478,7 @@
     "consulta": 4,
     "titulo": "Videos con #cultura desde marzo de 2025",
     "registros": 67,
-    "ms": 100,
+    "ms": 74,
     "datos": [
       {
         "_id": "pub_58",
@@ -1116,7 +1116,7 @@
     "consulta": 5,
     "titulo": "Top 10 usuarios más activos",
     "registros": 10,
-    "ms": 133,
+    "ms": 94,
     "datos": [
       {
         "_id": "user_311",
@@ -1214,7 +1214,7 @@
     "consulta": 6,
     "titulo": "Publicaciones más populares",
     "registros": 10,
-    "ms": 104,
+    "ms": 74,
     "datos": [
       {
         "reacciones": 4,
@@ -1282,7 +1282,7 @@
     "consulta": 7,
     "titulo": "Mejores horarios de interacción (hora UTC)",
     "registros": 10,
-    "ms": 91,
+    "ms": 74,
     "datos": [
       {
         "interacciones": 8,
@@ -1340,7 +1340,7 @@
     "consulta": 8,
     "titulo": "Perfil de la audiencia",
     "registros": 9,
-    "ms": 139,
+    "ms": 101,
     "datos": [
       {
         "reacciones": 73,
@@ -1393,7 +1393,7 @@
     "consulta": 9,
     "titulo": "Impacto de campañas frente a sus metas",
     "registros": 10,
-    "ms": 147,
+    "ms": 101,
     "datos": [
       {
         "_id": "camp_343",
@@ -1511,7 +1511,7 @@
     "consulta": 10,
     "titulo": "Categorías con mayor engagement",
     "registros": 5,
-    "ms": 107,
+    "ms": 94,
     "datos": [
       {
         "_id": "Tecnología",

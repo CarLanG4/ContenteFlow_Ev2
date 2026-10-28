@@ -1,0 +1,812 @@
+{
+  "info": {
+    "_postman_id": "1f98ab0b-5dda-461e-be19-121598ce54ac",
+    "name": "ContentFlow - EP2 BDY0101",
+    "description": "Colección de la Evaluación Parcial N°2. Selecciona el entorno 'ContentFlow local' y ejecuta las carpetas en orden (3, 4, 5, 6). Antes, inicia la API con: python scripts/08_api.py",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "3. Configuración y conectividad",
+      "item": [
+        {
+          "name": "3.1 Health - conexión a MongoDB Atlas (sin API key)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+                  "pm.test(\"Atlas responde (estado ok)\", () => pm.expect(pm.response.json().estado).to.eql(\"ok\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "health"
+              ],
+              "query": []
+            },
+            "description": "Comprueba que la API responde y que Atlas contesta el ping.\n\nEsperado: HTTP 200."
+          }
+        },
+        {
+          "name": "3.2 Petición autenticada - Headers (CAPTURA 3)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/segmentacion/usuarios",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "segmentacion",
+                "usuarios"
+              ],
+              "query": []
+            },
+            "description": "Abre la pestaña Headers: muestra x-api-key y la URL del endpoint.\n\nEsperado: HTTP 200."
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Consultas de negocio",
+      "item": [
+        {
+          "name": "4.1 Métricas de publicaciones y reacciones (CAPTURA 4)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+                  "pm.test(\"Devuelve 10 registros\", () => pm.expect(pm.response.json().registros).to.eql(10));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/metricas/publicaciones?limite=10",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "metricas",
+                "publicaciones"
+              ],
+              "query": [
+                {
+                  "key": "limite",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Top 10 publicaciones por reacciones, con comentarios y likes.\n\nEsperado: HTTP 200."
+          }
+        },
+        {
+          "name": "4.2 Impacto de campañas - tiempo y volumen (CAPTURA 5)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+                  "pm.test(\"Devuelve 50 registros\", () => pm.expect(pm.response.json().registros).to.eql(50));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/campanas/impacto?limite=50",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "campanas",
+                "impacto"
+              ],
+              "query": [
+                {
+                  "key": "limite",
+                  "value": "50"
+                }
+              ]
+            },
+            "description": "50 campañas con su cumplimiento; mira tiempo_ms, registros y el tiempo que muestra Postman.\n\nEsperado: HTTP 200."
+          }
+        },
+        {
+          "name": "4.3 Segmentación de usuarios (extra)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/segmentacion/usuarios?genero=Femenino",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "segmentacion",
+                "usuarios"
+              ],
+              "query": [
+                {
+                  "key": "genero",
+                  "value": "Femenino"
+                }
+              ]
+            },
+            "description": "Segmentos de audiencia filtrados por género.\n\nEsperado: HTTP 200."
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. CRUD completo",
+      "item": [
+        {
+          "name": "5.1 CREATE - POST publicación (CAPTURA 6)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+                  "const id = pm.response.json().insertedId;",
+                  "pm.test(\"Devuelve insertedId\", () => pm.expect(id).to.be.a(\"string\"));",
+                  "pm.environment.set(\"pub_id\", id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/publicaciones",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "publicaciones"
+              ],
+              "query": []
+            },
+            "description": "Crea la publicación y guarda insertedId en la variable pub_id.\n\nEsperado: HTTP 201.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuario_id\": \"user_1\",\n  \"contenido\": \"Publicación creada desde Postman para la EP2\",\n  \"categoria\": \"Tecnología\",\n  \"tipo\": \"Video\",\n  \"hashtags\": [\n    \"#innovacion\",\n    \"#aprendizaje\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "5.2 READ - filtros avanzados (CAPTURA 7)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/publicaciones?categoria=Tecnolog%C3%ADa&tipo=Video&hashtag=cultura&desde=2025-03-01&campos=categoria%2Ctipo%2Chashtags%2Cfecha_publicacion&orden=fecha_desc&limite=5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "publicaciones"
+              ],
+              "query": [
+                {
+                  "key": "categoria",
+                  "value": "Tecnología"
+                },
+                {
+                  "key": "tipo",
+                  "value": "Video"
+                },
+                {
+                  "key": "hashtag",
+                  "value": "cultura"
+                },
+                {
+                  "key": "desde",
+                  "value": "2025-03-01"
+                },
+                {
+                  "key": "campos",
+                  "value": "categoria,tipo,hashtags,fecha_publicacion"
+                },
+                {
+                  "key": "orden",
+                  "value": "fecha_desc"
+                },
+                {
+                  "key": "limite",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "Filtro compuesto + proyección + orden + límite.\n\nEsperado: HTTP 200."
+          }
+        },
+        {
+          "name": "5.2b READ - la publicación recién creada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/publicaciones/{{pub_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "publicaciones",
+                "{{pub_id}}"
+              ],
+              "query": []
+            },
+            "description": "Confirma que el documento creado existe (resumen con 0 reacciones y 0 comentarios).\n\nEsperado: HTTP 200."
+          }
+        },
+        {
+          "name": "5.3 UPDATE - PUT reemplazo (CAPTURA 8)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+                  "pm.test(\"modified_count = 1\", () => pm.expect(pm.response.json().modified_count).to.eql(1));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/publicaciones/{{pub_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "publicaciones",
+                "{{pub_id}}"
+              ],
+              "query": []
+            },
+            "description": "Reemplaza contenido, categoría, tipo y hashtags.\n\nEsperado: HTTP 200.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contenido\": \"Publicación actualizada completa con PUT\",\n  \"categoria\": \"Educación\",\n  \"tipo\": \"Texto\",\n  \"hashtags\": [\n    \"#aprendizaje\",\n    \"#cultura\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "5.3b UPDATE - PATCH parcial",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/publicaciones/{{pub_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "publicaciones",
+                "{{pub_id}}"
+              ],
+              "query": []
+            },
+            "description": "Cambia solo los hashtags.\n\nEsperado: HTTP 200.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hashtags\": [\n    \"#futbol\",\n    \"#series\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "5.4 DELETE - eliminar en cascada (CAPTURA 9)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+                  "pm.test(\"deleted_count = 1\", () => pm.expect(pm.response.json().deleted_count).to.eql(1));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/publicaciones/{{pub_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "publicaciones",
+                "{{pub_id}}"
+              ],
+              "query": []
+            },
+            "description": "Borra la publicación y sus dependientes.\n\nEsperado: HTTP 200."
+          }
+        },
+        {
+          "name": "5.4b Verificación posterior al DELETE (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/publicaciones/{{pub_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "publicaciones",
+                "{{pub_id}}"
+              ],
+              "query": []
+            },
+            "description": "El mismo ID ya no existe.\n\nEsperado: HTTP 404."
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Errores y validaciones",
+      "item": [
+        {
+          "name": "6.1 Datos inválidos - 400 (CAPTURA 10)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+                  "pm.test(\"Lista los campos con error\", () => pm.expect(pm.response.json().detalle.length).to.be.above(0));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/publicaciones",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "publicaciones"
+              ],
+              "query": []
+            },
+            "description": "Categoría inexistente, contenido vacío y hashtag sin #: respuesta controlada.\n\nEsperado: HTTP 400.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usuario_id\": \"user_99999\",\n  \"contenido\": \"\",\n  \"categoria\": \"Moda\",\n  \"tipo\": \"Video\",\n  \"hashtags\": [\n    \"sin_numeral\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "6.2 Recurso inexistente - 404 (CAPTURA 11)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+                  "pm.test(\"error = no_encontrado\", () => pm.expect(pm.response.json().error).to.eql(\"no_encontrado\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/publicaciones/pub_999999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "publicaciones",
+                "pub_999999"
+              ],
+              "query": []
+            },
+            "description": "ID que no existe: respuesta estructurada.\n\nEsperado: HTTP 404."
+          }
+        },
+        {
+          "name": "6.3 Sin API key - 401 (extra)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 401\", () => pm.response.to.have.status(401));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/metricas/publicaciones",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "metricas",
+                "publicaciones"
+              ],
+              "query": []
+            },
+            "description": "Acceso sin autenticación: rechazado.\n\nEsperado: HTTP 401."
+          }
+        },
+        {
+          "name": "6.4 Proteger datos originales - 403 (extra)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 403\", () => pm.response.to.have.status(403));",
+                  "pm.test(\"Responde en menos de 3000 ms\", () => pm.expect(pm.response.responseTime).to.be.below(3000));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/publicaciones/pub_1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "publicaciones",
+                "pub_1"
+              ],
+              "query": []
+            },
+            "description": "Los datos originales del análisis no se pueden modificar.\n\nEsperado: HTTP 403.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contenido\": \"Publicación actualizada completa con PUT\",\n  \"categoria\": \"Educación\",\n  \"tipo\": \"Texto\",\n  \"hashtags\": [\n    \"#aprendizaje\",\n    \"#cultura\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

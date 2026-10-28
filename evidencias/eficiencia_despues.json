@@ -5,8 +5,8 @@
     "indice": "idx_categoria_fecha",
     "docs_examinados": 111,
     "docs_devueltos": 111,
-    "ms_servidor": 1,
-    "ms_cliente": 240.4
+    "ms_servidor": 0,
+    "ms_cliente": 153.0
   },
   {
     "consulta": "Publicaciones de un usuario",
@@ -14,8 +14,8 @@
     "indice": "idx_usuario",
     "docs_examinados": 4,
     "docs_devueltos": 4,
-    "ms_servidor": 1,
-    "ms_cliente": 102.7
+    "ms_servidor": 0,
+    "ms_cliente": 75.3
   },
   {
     "consulta": "Reacciones de una publicación",
@@ -23,8 +23,8 @@
     "indice": "idx_publicacion",
     "docs_examinados": 2,
     "docs_devueltos": 2,
-    "ms_servidor": 1,
-    "ms_cliente": 99.0
+    "ms_servidor": 0,
+    "ms_cliente": 72.8
   },
   {
     "consulta": "Comentarios de un usuario",
@@ -32,8 +32,8 @@
     "indice": "idx_usuario",
     "docs_examinados": 3,
     "docs_devueltos": 3,
-    "ms_servidor": 1,
-    "ms_cliente": 101.6
+    "ms_servidor": 0,
+    "ms_cliente": 74.1
   },
   {
     "consulta": "Usuario por correo",
@@ -41,8 +41,8 @@
     "indice": "idx_correo_unico",
     "docs_examinados": 1,
     "docs_devueltos": 1,
-    "ms_servidor": 1,
-    "ms_cliente": 93.4
+    "ms_servidor": 0,
+    "ms_cliente": 74.1
   },
   {
     "consulta": "Agregación: top 10 usuarios más activos",
@@ -51,7 +51,7 @@
     "docs_examinados": null,
     "docs_devueltos": 10,
     "ms_servidor": null,
-    "ms_cliente": 191.0
+    "ms_cliente": 96.8
   },
   {
     "consulta": "Agregación: impacto de campañas",
@@ -60,6 +60,6 @@
     "docs_examinados": null,
     "docs_devueltos": 10,
     "ms_servidor": null,
-    "ms_cliente": 133.9
+    "ms_cliente": 89.7
   }
 ]
